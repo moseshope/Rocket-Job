@@ -25,7 +25,7 @@ SECRET_KEY = 'whgo=+1yl8ph&x^@639_1euw8a8ysnxj5^u%naf89^p=qda0&5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['freelancingmarketplace.herokuapp.com']
 
 
 # Application definition

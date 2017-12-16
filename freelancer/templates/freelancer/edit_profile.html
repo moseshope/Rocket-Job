@@ -1,0 +1,48 @@
+{% extends 'freelancer/base_profile.html' %}
+
+{% block title %}{{ profile.username }} Profile - Edit{% endblock %}
+
+
+{% block body %}
+
+
+<div class="container">
+  <form id="contact" method="POST" action="{% url 'freelancer:edit_profile' profile.id %}">
+    {% csrf_token %}
+    <h1>Edit Profile</h1>
+
+    <fieldset>
+      <input placeholder="First Name" name="first_name" type="text" tabindex="1" required autofocus>
+    </fieldset>
+
+    <fieldset>
+      <input placeholder="Last Name" name="last_name" type="text" tabindex="2" required>
+    </fieldset>
+
+    <fieldset>
+      <input placeholder="Portfolio Link" name="portfolio" type="text" tabindex="3" required>
+    </fieldset>
+    <fieldset>
+      <input placeholder="Address Line 1" name="address1" type="text" tabindex="4" required>
+    </fieldset>
+    <fieldset>
+      <input placeholder="Address Line 2" name="address2" type="text" tabindex="5" required>
+    </fieldset>
+    <fieldset>
+      <input placeholder="City" name="city" type="text" tabindex="6" required>
+    </fieldset>
+    <fieldset>
+      <input placeholder="Country" name="country" type="text" tabindex="7" required>
+    </fieldset>
+    <fieldset>
+      <textarea placeholder="About You" name="about" tabindex="8" required></textarea>
+    </fieldset>
+
+
+    <fieldset>
+      <button name="submit" type="submit" id="contact-submit" data-submit="...Posting">Re-Submit</button>
+    </fieldset>
+  </form>
+</div>
+
+{% endblock %}

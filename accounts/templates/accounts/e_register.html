@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Employer Registration</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'accounts/css/reg_style.css' %}" type='text/css'>
+  </head>
+
+  <body>
+    <header>
+      <div class="container">
+        <div id="branding">
+          <span class="highlight"><a href="/"><h1>GETWORK</h1></a></span>
+        </div>
+      </div>
+    </header>
+
+
+    <div id="reg">
+      <!--{% if error_message %}
+        <p><strong>{{ error_message }}</strong></p>
+      {% endif %}
+      {% if field.help_text %}
+        <small style="color: grey">{{ field.help_text }}</small>
+      {% endif %}
+      {% for error in field.errors %}
+        <p style="color: red">{{ error }}</p>
+      {% endfor %}-->
+      <form method="POST" action="{% url 'accounts:e_reg' %}">
+        {% csrf_token %} <!-- CSRF verification failing solution -->
+        <h2>Employer Registration</h2>
+        <input type="text" name="first_name" placeholder="Employer First Name">
+        <input type="text" name="last_name" placeholder="Employer Last Name">
+        <input type="email" name="email" placeholder="Employer Email">
+        <input type="text" name="username" placeholder="Employer Username">
+        <input type="password" name="password1" placeholder="Employer Password">
+        <input type="password" name="password2" placeholder="Confirm Password">
+        <input type="submit" id="reg-btn" value="Employer Sign Up">
+        <h6>Already Have an Account? <a href="/accounts/login">Log In</a></h6>
+      </form>
+    </div>
+
+
+  </body>
+
+</html>

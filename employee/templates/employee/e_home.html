@@ -1,0 +1,92 @@
+{% extends 'employee/base_employee.html' %}
+
+{% block title %}GETWORK - Home{% endblock %}
+
+{% block body %}
+
+  <div class="box-border">
+    <section id="main">
+      <article id="main-col">
+        <ul>
+
+          {% for job in jobs %}
+            <div class="card">
+              <div class="card-body">
+                <p style="float:right; margin:10px;"><b>Budget: </b>{{ job.budget }}</p>
+                <p><h2 class="card-title"><a href="{% url 'details:job_details' job.id %}">{{ job.title }}</a></h2> posted by: {{ job.user }}</p>
+
+                {% if name.is_authenticated and name == job.user %}
+                  <a href="{% url 'details:edit_job' job.id %}" class="btn btn-primary" style="margin-bottom:5px;">Edit Job</a>
+                {% endif %}
+
+                <p><b>Job Duration:</b>  {{ job.time }}<p>
+                <p><b>Description:</b> {{ job.short_text }}</p>
+<!--                <a href="{% url 'details:job_details' job.id %}" class="btn btn-primary" style="float:right;">Bid This Job</a>-->
+                <p style="margin-top:5px;"><b>Skills:</b> {{ job.skill }}</p>
+                <p><b>Posted On:</b>  {{ job.created_date }}<p>
+
+              </div>
+            </div>
+          {% endfor %}
+
+          <!--pagination-->
+          <div class="pagination">
+            <span class="step-links">
+                {% if jobs.has_previous %}
+                    <a href="?page={{ jobs.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ jobs.number }} of {{ jobs.paginator.num_pages }}.
+                </span>
+
+                {% if jobs.has_next %}
+                    <a href="?page={{ jobs.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+          </div>
+
+        </ul>
+      </article>
+    </section>
+  </div>
+
+
+  <!--
+  <section id="main">
+    <div class="container">
+      <div id="show-list">
+        <div class="list-group mx-auto" style="width:200px;">
+          <article id="main-col">
+            <a href="#" class="list-group-item list-group-item-action flex-column">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">List group item heading</h5>
+                <small style="float:right;">3 days ago</small>
+              </div>
+              <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+              <small>Donec id elit non mi porta.</small>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">List group item heading</h5>
+                <small>3 days ago</small>
+              </div>
+              <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+              <small>Donec id elit non mi porta.</small>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">List group item heading</h5>
+                <small>3 days ago</small>
+              </div>
+              <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+              <small>Donec id elit non mi porta.</small>
+            </a>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+  -->
+
+{% endblock %}

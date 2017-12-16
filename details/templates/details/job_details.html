@@ -1,0 +1,91 @@
+{% extends 'details/base_details.html' %}
+
+{% block title %}{{ job.title }}{% endblock %}
+
+{% block body %}
+
+
+<!--Job details-->
+<div class="container">
+  <div id="contact">
+    <h1>{{ job.title }} - Details</h1>
+    <h4><b>Description: </b>{{ job.short_text }}</h4>
+    <h4><b>Job Duration: </b>{{ job.time }}</h4>
+    <h4><b>Skills Needed: </b>{{ job.skill }}</h4>
+    <h4><b>Budget: </b>{{ job.budget }}</h4>
+    {% for u in user %}
+      {% if u == job.user %}
+        <h4><b>Job Posted By: </b><a href="{% url 'employee:profile' u.id %}">{{ job.user }}</a></h4>
+      {% endif %}
+    {% endfor %}
+    <h4><b>Posted On: </b>{{ job.created_date }}</h4>
+
+    {% if name.is_authenticated and name == job.user %}
+      <a href="{% url 'details:edit_job' job.id %}" class="btn btn-primary" style="margin-bottom:5px;">Edit Job</a>
+    {% endif %}
+  </div>
+</div>
+
+
+<!--submit bid form-->
+{% if name.is_authenticated and free_user == True and emp_user == False %}
+  {% if bid_limit == False %}
+    <div class="container">
+      <form id="contact" method="POST" action="{% url 'details:job_details' job.id %}">
+        {% csrf_token %}
+        <h3>Submit Your Bid</h3>
+        <fieldset>
+          <textarea placeholder="Write Your Bid" name="bid_text" tabindex="1" required></textarea>
+        </fieldset>
+        <fieldset>
+          <input placeholder="Time You Need (ex- 5 days)" name="bid_time" type="text" tabindex="2" required>
+        </fieldset>
+        <fieldset>
+          <input placeholder="Budget You Need (ex- 100 dollars)" name="bid_budget" type="text" tabindex="3" required>
+        </fieldset>
+        <fieldset>
+          <button name="submit" type="submit" id="contact-submit" data-submit="...Posting">Submit</button>
+        </fieldset>
+      </form>
+    </div>
+  {% endif %}
+{% endif %}
+
+
+<!--bid list-->
+<div class="box-border">
+  <h1 style="color: #F96; margin-bottom: -40px;">{{ count_bid }} Bids</h1>
+  <section id="main">
+    <article id="main-col">
+      <ul>
+        {% for bid in all_bids %}
+          {% if job.id == bid.job.id %}
+            <div class="card">
+              <div class="card-body">
+                <h2><a href="{% url 'freelancer:profile' bid.bid_poster.id %}">{{ bid.bid_poster }}</a></h2>
+                <p><b>Bid Description:</b> {{ bid.bid_text }}</p>
+                <p><b>Budget Needed: </b>{{ bid.bid_budget }}</p>
+                <p><b>Time Needed:</b>  {{ bid.bid_time }}<p>
+
+                {% if name == job.user %}
+                  <a style="float: right;" href="{% url 'employee:e_home' %}" class="btn btn-primary" style="margin-bottom:5px;">Hire Me</a>
+                {% endif %}
+                {% if name.is_authenticated and name == bid.bid_poster %}
+                  <a href="{% url 'details:edit_bid' bid.id %}" class="btn btn-primary" style="float:right;">Edit Bid</a>
+                {% endif %}
+
+                <p><b>Posted On:</b>  {{ bid.bid_posted_time }}<p>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </article>
+  </section>
+</div>
+
+
+
+
+
+{% endblock %}

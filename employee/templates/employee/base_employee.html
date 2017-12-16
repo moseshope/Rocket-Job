@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>{% block title %}GETWORK{% endblock %}</title>
+
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'employee/css/style.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'employee/css/contact_us_style.css' %}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </head>
+
+
+  <body>
+
+    {% if this_user %}
+
+      <header>
+        <div class="container">
+          <div id="branding">
+            <span class="highlight"><a href="/"><h1>GETWORK</h1></a></span>
+          </div>
+          <nav>
+              <ul>
+                <li><a href="{% url 'scraper:aroundtheweb' %}">Around The Web</a></li>
+                <li><a href="{% url 'employee:e_home' %}">Browse Jobs</a></li>
+                <li><a href="{% url 'employee:add_job' %}">Post a Job</a></li>
+                <li><a href="{% url 'message:message' name.id %}">MESSAGES({{count_message_e}})</a></li>
+                <li><a href="{% url 'employee:profile' name.id %}">{{ name.username }}</a></li>
+                <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+              </ul>
+          </nav>
+        </div>
+      </header>
+
+      <section id="aboutshowcase">
+        <div class="container">
+          <h1>Get Your Work Done Fast</h1>
+        </div>
+      </section>
+
+      {% block body %}
+      {% endblock %}
+
+      <!--keeping the footer at the footer-->
+      <!--<div id="container">
+        <div id="main">
+
+        </div>
+      </div>-->
+
+      <footer id="foot">
+        <a style="text-decoration-line: none; color:white;" href="{% url 'appMarketplace:index' %}">Home</a> - <a  style="text-decoration-line: none; color:white;" href="{% url 'appMarketplace:about' %}">About Us</a> - <a style="text-decoration-line: none; color:white;" href="{% url 'appMarketplace:contact_us' %}">Contact Us</a>
+        <p>GETWORK.com, Copyright &copy; 2017</p>
+      </footer>
+
+    {% else %}
+
+      <header>
+        <div class="container">
+          <div id="branding">
+            <span class="highlight"><a href="/"><h1>GETWORK</h1></a></span>
+          </div>
+          <nav>
+            <ul>
+              <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+
+      <div style="text-align: center; margin-top: 50px;">
+        <h1>Oops! You're Not Allowed To See This Page!<br>
+          <a style="margin-top: 50px;" href="{% url 'appMarketplace:index' %}">GO HOME</a>
+        </h1>
+      </div>
+
+    {% endif %}
+
+  </body>
+
+</html>

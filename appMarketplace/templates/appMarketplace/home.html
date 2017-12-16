@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>GETWORK - Hire Programmers For Your Development</title>
+    <link rel="stylesheet" href="static/appMarketplace/css/style.css" type='text/css'>
+
+  </head>
+
+
+<body>
+  <header>
+    <div class="container">
+      <div id="branding">
+        <span class="highlight"><a href="/"><h1>GETWORK</h1></a></span>
+      </div>
+      <nav>
+        {% if name.is_authenticated and emp_user == True and free_user == False %}
+          <ul>
+            <li><a href="{% url 'scraper:aroundtheweb' %}">Around The Web</a></li>
+            <li><a href="{% url 'employee:e_home' %}">Browse Jobs</a></li>
+            <li><a href="{% url 'employee:add_job' %}">Post a Job</a></li>
+            <li><a href="{% url 'message:message' name.id %}">MESSAGES({{count_message_e}})</a></li>
+            <li><a href="{% url 'employee:profile' name.id %}">{{ name.username }}</a></li>
+            <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+          </ul>
+        {% elif name.is_authenticated and free_user == True and emp_user == False %}
+          <ul>
+            <li><a href="{% url 'scraper:aroundtheweb' %}">Around The Web</a></li>
+            <li><a href="{% url 'freelancer:f_home' %}">Browse Jobs</a></li>
+          <!--  <li><a href="{% url 'message:message' name.id %}">MESSAGES({{count_message_f}})</a></li>-->
+            <li><a href="{% url 'freelancer:profile' name.id %}">{{ name.username }}</a></li>
+            <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+          </ul>
+        {% else %}
+          <ul>
+            <li><a href="{% url 'scraper:aroundtheweb' %}">Around The Web</a></li>
+            <li><a href="{% url 'accounts:e_reg' %}">Hire Freelancer</a></li>
+            <li><a href="{% url 'accounts:f_reg' %}">Become A Freelancer</a></li>
+            <li><a href="{% url 'accounts:login' %}">Login</a></li>
+          </ul>
+        {% endif %}
+      </nav>
+    </div>
+  </header>
+
+  <section id="showcase">
+    <style>
+      #showcase{
+        background: url("static/appMarketplace/img/showcase.jpg") no-repeat 0 -400px;
+      }
+    </style>
+    <div class="container">
+      <h1>Get More Done With The Freelancers</h1>
+      <p>Millions of small businesses use freelance jobs to turn their ideas into reality</p>
+    </div>
+  </section>
+
+  <section id="newsletter">
+    <div class="container">
+      <h1>Subscribe To Our Newsletter</h1>
+      <form>
+        <input type="email" placeholder="Enter Email...">
+        <button type="submit" class="button_1">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+
+  <section id="boxes">
+    <div class="container">
+      <div class="box">
+        <img src="static/appMarketplace/img/logo_html.png">
+        <h3>HTML5 Markups</h3>
+        <p>Various Jobs about HTML5. Help someone to create their first website.</p>
+      </div>
+      <div class="box">
+        <img src="static/appMarketplace/img/logo_css.png">
+        <h3>CSS3 Styling</h3>
+        <p>Various Jobs about CSS3. Help someone to style their website.</p>
+      </div>
+      <div class="box">
+        <img src="static/appMarketplace/img/logo_brush.png">
+        <h3>Graphics Design</h3>
+        <p>Various Jobs about Graphics Design. Help someone to create Design Their world.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer id="foot">
+    <a  style="text-decoration-line: none; color:white;" href="{% url 'appMarketplace:about' %}">About Us</a> - <a style="text-decoration-line: none; color:white;" href="{% url 'appMarketplace:contact_us' %}">Contact Us</a>
+    <p>GETWORK.com, Copyright &copy; 2017</p>
+  </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+{% extends 'message/base_message.html' %}
+
+{% block title %}{{ name.username }} messages{% endblock %}
+
+
+{% block body %}
+
+<!--
+<h1>Messages</h1>
+{% for message in all_messages %}
+  {% if name == message.post_user %}
+    <p><b>{{ message.comment_user }}</b> have submitted a bid on your job <b>{{ message.job }}</b></p>
+  {% endif %}
+{% endfor %}
+-->
+
+<div class="box-border">
+  <section id="main">
+    <h1 style="margin-bottom:20px; margin-left:10px;">Messages</h1>
+    <article id="main-col">
+      <ul>
+
+        {% for message in all_messages %}
+          {% if name == message.post_user %}
+            <div class="card">
+              <div class="card-body">
+
+                <p><a href="{% url 'freelancer:profile' message.comment_user.id %}"><b>{{ message.comment_user }}</b></a> have submitted a bid on your job <a href="{% url 'details:job_details' message.job.id %}"><b>{{ message.job }}</b></a></p>
+
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+
+<!--
+        <!--pagination
+        <div class="pagination">
+          <span class="step-links">
+              {% if jobs.has_previous %}
+                  <a href="?page={{ jobs.previous_page_number }}">previous</a>
+              {% endif %}
+
+              <span class="current">
+                  Page {{ jobs.number }} of {{ jobs.paginator.num_pages }}.
+              </span>
+
+              {% if jobs.has_next %}
+                  <a href="?page={{ jobs.next_page_number }}">next</a>
+              {% endif %}
+          </span>
+        </div>
+-->
+
+      </ul>
+    </article>
+  </section>
+</div>
+
+{% endblock %}

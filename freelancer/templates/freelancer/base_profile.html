@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>{% block title %}GETWORK{% endblock %}</title>
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'freelancer/css/style.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'employee/css/contact_us_style.css' %}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </head>
+
+
+  <body>
+
+      <header>
+        <div class="container">
+          <div id="branding">
+            <span class="highlight"><a href="/"><h1>GETWORK</h1></a></span>
+          </div>
+          <nav>
+            {% if name.is_authenticated and emp_user == True and free_user == False %}
+              <ul>
+                <li><a href="{% url 'scraper:aroundtheweb' %}">Around The Web</a></li>
+                <li><a href="{% url 'employee:e_home' %}">Browse Jobs</a></li>
+                <li><a href="{% url 'employee:add_job' %}">Post a Job</a></li>
+                <li><a href="{% url 'message:message' name.id %}">MESSAGES({{count_message_e}})</a></li>
+                <li><a href="{% url 'employee:profile' name.id %}">{{ name.username }}</a></li>
+                <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+              </ul>
+            {% elif name.is_authenticated and free_user == True and emp_user == False %}
+              <ul>
+                <li><a href="{% url 'scraper:aroundtheweb' %}">Around The Web</a></li>
+                <li><a href="{% url 'freelancer:f_home' %}">Browse Jobs</a></li>
+              <!--  <li><a href="{% url 'message:message' name.id %}">MESSAGES({{count_message_f}})</a></li>-->
+                <li><a href="{% url 'freelancer:profile' name.id %}">{{ name.username }}</a></li>
+                <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+              </ul>
+            {% endif %}
+          </nav>
+        </div>
+      </header>
+
+
+
+      {% block body %}
+      {% endblock %}
+
+      <div id="container">
+        <div id="main">
+
+        </div>
+      </div>
+
+      <footer id="foot">
+        <a style="text-decoration-line: none; color:white;" href="{% url 'appMarketplace:index' %}">Home</a> - <a  style="text-decoration-line: none; color:white;" href="{% url 'appMarketplace:about' %}">About Us</a> - <a style="text-decoration-line: none; color:white;" href="{% url 'appMarketplace:contact_us' %}">Contact Us</a>
+        <p>GETWORK.com, Copyright &copy; 2017</p>
+      </footer>
+
+  </body>
+</html>

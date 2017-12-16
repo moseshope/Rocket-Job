@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>About | GETWORK</title>
+    <link rel="stylesheet" href="../static/appMarketplace/css/style.css" type='text/css'>
+  </head>
+
+
+<body>
+  <header>
+    <div class="container">
+      <div id="branding">
+        <span class="highlight"><a href="/"><h1>GETWORK</h1></a></span>
+      </div>
+      <nav>
+        {% if name.is_authenticated and emp_user == True and free_user == False %}
+          <ul>
+            <li><a href="{% url 'scraper:aroundtheweb' %}">Around The Web</a></li>
+            <li><a href="{% url 'employee:e_home' %}">Browse Jobs</a></li>
+            <li><a href="{% url 'employee:add_job' %}">Post a Job</a></li>
+            <li><a href="{% url 'message:message' name.id %}">MESSAGES({{count_message_e}})</a></li>
+            <li><a href="{% url 'employee:profile' name.id %}">{{ name.username }}</a></li>
+            <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+          </ul>
+        {% elif name.is_authenticated and free_user == True and emp_user == False %}
+          <ul>
+            <li><a href="{% url 'scraper:aroundtheweb' %}">Around The Web</a></li>
+            <li><a href="{% url 'freelancer:f_home' %}">Browse Jobs</a></li>
+          <!--  <li><a href="{% url 'message:message' name.id %}">MESSAGES({{count_message_f}})</a></li>-->
+            <li><a href="{% url 'freelancer:profile' name.id %}">{{ name.username }}</a></li>
+            <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+          </ul>
+        {% else %}
+          <ul>
+            <li><a href="{% url 'scraper:aroundtheweb' %}">Around The Web</a></li>
+            <li><a href="{% url 'accounts:e_reg' %}">Hire Freelancer</a></li>
+            <li><a href="{% url 'accounts:f_reg' %}">Become A Freelancer</a></li>
+            <li><a href="{% url 'accounts:login' %}">Login</a></li>
+          </ul>
+        {% endif %}
+      </nav>
+    </div>
+  </header>
+
+  <section id="aboutshowcase">
+    <div class="container">
+      <h1>About Us</h1>
+      <p>Creating a World Of Work Without Limits</p>
+    </div>
+  </section>
+
+
+  <section id="newsletter">
+    <div class="container">
+      <h1>Subscribe To Our Newsletter</h1>
+      <form>
+        <input type="email" placeholder="Enter Email...">
+        <button type="submit" class="button_1">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+
+  <section id="main">
+    <div class="container">
+      <article id="main-col">
+        <p>
+          <h3><b>Our story</b></h3>
+
+          The GETWORK story begins over a decade ago, when the tech lead of a Silicon Valley startup realized his close friend in Athens would be perfect for a web project. The team agreed he was the best choice, but were concerned about working with someone halfway around the globe.
+
+          <h3><b>A new way of working is born</b></h3>
+
+          In response, the two friends created a new web-based platform that brought visibility and trust to remote work. It was so successful the two realized other businesses would also benefit from reliable access to a larger pool of quality talent, while workers would enjoy freedom and flexibility to find jobs online. Together they decided to start a company that would deliver on the promise of this technology.
+
+          Fast-forward to today, that technology is the foundation of GETWORK — the world’s leading freelancing website. With millions of jobs posted on GETWORK annually, freelancers are earning more than $1 billion via the site each year and providing companies with over 3,500 skills.
+
+          <h3><b>A world of opportunities</b></h3>
+
+          Through GETWORK businesses get more done, connecting with freelancers to work on projects about web development, software development and mobile app developments. GETWORK makes it fast, simple, and cost-effective to find, hire, work with, and pay the best professionals anywhere, any time.
+
+          <h3><b>GETWORK’s vision</b></h3>
+
+          To connect businesses with great talent to work without limits.
+        </p>
+      </article>
+
+      <aside id="sidebar">
+        <div class="dark">
+          <h3>Our Online Economy</h3>
+          <p>
+            The video below illustrates the Freelancer online economy. The pink lines indicate where projects are being posted by employers, and the blue lines indicate where the projects are being performed by freelancers. Thicker lines indicate a higher dollar volume of work. White dots indicate the location of Freelancer's users.
+          </p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <footer>
+    <a  style="text-decoration-line: none; color:white;" href="{% url 'appMarketplace:index' %}">Home</a> - <a style="text-decoration-line: none; color:white;" href="{% url 'appMarketplace:contact_us' %}">Contact Us</a>
+    <p>GETWORK.com, Copyright &copy; 2017</p>
+  </footer>
+
+</body>
+
+</html>

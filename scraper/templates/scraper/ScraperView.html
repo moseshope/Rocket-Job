@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+      <title>GETWORK - Around The Web</title>
+      {% load static %}
+      <link rel="stylesheet" href="{% static 'scraper/css/style.css' %}" type='text/css'>
+  </head>
+
+  <body>
+    <header>
+      <div class="container">
+        <div id="branding">
+          <span class="highlight"><a href="/"><h1>GETWORK</h1></a></span>
+        </div>
+        <nav>
+          {% if name.is_authenticated and emp_user == True and free_user == False %}
+            <ul>
+              <li><a href="{% url 'scraper:aroundtheweb' %}">Around The Web</a></li>
+              <li><a href="{% url 'employee:e_home' %}">Browse Jobs</a></li>
+              <li><a href="{% url 'employee:add_job' %}">Post a Job</a></li>
+              <li><a href="{% url 'message:message' name.id %}">MESSAGES({{count_message_e}})</a></li>
+              <li><a href="{% url 'employee:profile' name.id %}">{{ name.username }}</a></li>
+              <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+            </ul>
+          {% elif name.is_authenticated and free_user == True and emp_user == False %}
+            <ul>
+              <li><a href="{% url 'scraper:aroundtheweb' %}">Around The Web</a></li>
+              <li><a href="{% url 'freelancer:f_home' %}">Browse Jobs</a></li>
+            <!--  <li><a href="{% url 'message:message' name.id %}">MESSAGES({{count_message_f}})</a></li>-->
+              <li><a href="{% url 'freelancer:profile' name.id %}">{{ name.username }}</a></li>
+              <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+            </ul>
+          {% else %}
+            <ul>
+              <li><a href="{% url 'scraper:aroundtheweb' %}">Around The Web</a></li>
+              <li><a href="{% url 'accounts:e_reg' %}">Hire Freelancer</a></li>
+              <li><a href="{% url 'accounts:f_reg' %}">Become A Freelancer</a></li>
+              <li><a href="{% url 'accounts:login' %}">Login</a></li>
+            </ul>
+          {% endif %}
+        </nav>
+      </div>
+    </header>
+
+    <section id="newsletter">
+      <div class="container">
+        <h1>Subscribe To Our Newsletter</h1>
+        <form>
+          <input type="email" placeholder="Enter Email...">
+          <button type="submit" class="button_1">Subscribe</button>
+        </form>
+
+      </div>
+    </section>
+
+    <section id="page_title">
+      <h1>Jobs For Web developers Around The Web</h1>
+    </section>
+
+    <section id="main">
+      <div class="container">
+        <article id="main-col">
+          <ul>
+
+            {% for job in jobs %}
+            <div class='card '>
+              <a class="card-header" href="https://www.freelancer.com{{ job.link }}">
+                <div class="card-title">
+              <h2>"{{ job.title }}"</h2></a> <p>--{{ job.time }}</p></br>
+                <p><b>Budget:</b> {{ job.budget }}</p></br><p><b>Description:</b> {{ job.short_text }}</p></br>
+                <p><b>Skills:</b> {{ job.skill }}</p>
+              </div>
+              </div>
+            {% endfor %}
+
+            <!--pagination-->
+            <div class="pagination">
+              <span class="step-links">
+                  {% if jobs.has_previous %}
+                      <a href="?page={{ jobs.previous_page_number }}">previous</a>
+                  {% endif %}
+
+                  <span class="current">
+                      Page {{ jobs.number }} of {{ jobs.paginator.num_pages }}.
+                  </span>
+
+                  {% if jobs.has_next %}
+                      <a href="?page={{ jobs.next_page_number }}">next</a>
+                  {% endif %}
+              </span>
+            </div>
+
+          </ul>
+        </article>
+      </div>
+    </section>
+
+
+    <!--
+    <section id="main">
+      <div class="container">
+        <article id="main-col">
+          <ul>
+            {% for job in all_jobs %}
+            <li><a href="https://www.freelancer.com{{ job.link }}">
+              <h2>"{{ job.title }}"</h2></a> <p>--{{ job.time }}</p></br>
+                <p><b>Budget:</b> {{ job.budget }}</p></br><p><b>Description:</b> {{ job.short_text }}</p></br>
+                <p><b>Skills:</b> {{ job.skill }}</p>
+              </br></br><p>----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</p></br></br></li>
+            {% endfor %}
+          </ul>
+        </article>
+      </div>
+    </section>
+  -->
+    <footer>
+      <p>GETWORK.com, Copyright &copy; 2017</p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,75 @@
+# scraping recent posted jobs data from https://www.freelancer.com
+
+
+import requests
+from bs4 import BeautifulSoup
+url = "https://www.freelancer.com/jobs/regions/?keyword=web%20development#"
+r = requests.get(url)
+r.content
+soup = BeautifulSoup(r.content, "lxml")
+
+print (soup.prettify())
+links = soup.find_all("a")
+
+for link in links:
+    print(link.get("href"))
+
+
+g_data = soup.find_all("div", {"class": "JobSearchCard-item-inner"})
+print(g_data)
+
+for item in g_data:
+    print(item.contents[1].text) # contents[0]
+    print(item.contents[3].text) # contents[1]
+
+
+g_data = soup.find_all("div", {"class": "JobSearchCard-primary"})
+print(g_data)
+
+g_data = soup.find_all("div", {"class": "JobSearchCard-primary"})
+for item in g_data:
+    print(item.contents[1].text) # contents[0]
+    print(item.contents[3].text) # contents[1]
+
+
+g_data = soup.find_all("div", {"class": "JobSearchCard-primary"})
+for item in g_data:
+    #heading / title
+    print(item.contents[1].find_all("a", {"class": "JobSearchCard-primary-heading-link"})[0].text)
+    print(item.contents[1].find_all("span", {"class": "JobSearchCard-primary-heading-Days"})[0].text)
+    #description
+    print(item.contents[3].text)
+    #tags / skills
+    print(item.contents[5].text.replace('\n', '  '))
+    #price
+    print(item.contents[7].text.replace('\n', ' '))
+
+
+
+for item in g_data:
+    try:
+        print(item.contents[7].find_all("div", {"class": "JobSearchCard-primary-price"})[0].text.replace('\n', ' '))
+        #print(item.contents[7].find_all("span", {"class": "JobSearchCard-primary-avgBid"})[0].text)
+    except:
+        pass
+
+
+for item in g_data:
+    tag_data = item.contents[5].find_all("a", {"class": "JobSearchCard-primary-tagsLink"})
+    #print(tag_data)
+    for tag in tag_dat:
+        print(tag.text)
+
+
+
+
+
+
+# final product
+g_data = soup.find_all("div", {"class": "JobSearchCard-primary"})
+for item in g_data:
+    print(item.contents[1].find_all("a", {"class": "JobSearchCard-primary-heading-link"})[0].text)
+    print(item.contents[1].find_all("span", {"class": "JobSearchCard-primary-heading-Days"})[0].text)
+    print(item.contents[3].text)
+    print(item.contents[5].text.replace('\n', '  '))
+    print(item.contents[7].text.replace('\n', ' '))

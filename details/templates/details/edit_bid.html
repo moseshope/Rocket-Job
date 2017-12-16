@@ -1,0 +1,35 @@
+{% extends 'details/base_details.html' %}
+
+{% block title %}Edit Bid : {{ bid.bid_poster }}{% endblock %}
+
+{% block body %}
+
+{% if name == bid.bid_poster %}
+  <div class="container">
+    <form id="contact" method="POST" action="{% url 'details:edit_bid' bid.id %}">
+      {% csrf_token %}
+      <h3>Edit Your Bid</h3>
+      <fieldset>
+        <textarea placeholder="Write Your Bid" name="bid_text" tabindex="1" required></textarea>
+      </fieldset>
+      <fieldset>
+        <input placeholder="Time You Need (ex- 5 days)" name="bid_time" type="text" tabindex="2" required>
+      </fieldset>
+      <fieldset>
+        <input placeholder="Budget You Need (ex- 100 dollars)" name="bid_budget" type="text" tabindex="3" required>
+      </fieldset>
+      <fieldset>
+        <button name="submit" type="submit" id="contact-submit" data-submit="...Posting">Re-Submit</button>
+      </fieldset>
+    </form>
+  </div>
+{% else %}
+  <div style="text-align: center; margin-top: 50px;">
+    <h1>Oops! You're Not Allowed To See This Page!<br>
+      <a style="margin-top: 50px;" href="{% url 'appMarketplace:index' %}">GO HOME</a>
+    </h1>
+  </div>
+{% endif %}
+
+
+{% endblock %}

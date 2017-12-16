@@ -1,0 +1,77 @@
+{% extends 'freelancer/base_profile.html' %}
+
+{% block title %}{{ profile.username }} Profile{% endblock %}
+
+{% block body %}
+
+<ul class="nav nav-pills nav-justified">
+  <li class="active"><a data-toggle="tab" href="#profile">MY ACCOUNT</a></li>
+  <li><a data-toggle="tab" href="#bids">MY BIDS</a></li>
+</ul>
+
+<div class="tab-content">
+
+  <!--tab 1 : profile -->
+  <div id="profile" class="tab-pane fade in active">
+    <div class="container">
+      <div id="contact">
+
+        <h2 style="margin-left:50px; margin-right:50px;"><b>First Name: </b>{{ profile.first_name }}</h2>
+        <h2 style="margin-left:50px; margin-right:50px;"><b>Last Name: </b>{{ profile.last_name }}</h2>
+        <h2 style="margin-left:50px; margin-right:50px;"><b>Username: </b>{{ profile.username }}</h2>
+        <h2 style="margin-left:50px; margin-right:50px;"><b>Email Address: </b>{{ profile.email }}</h2>
+        <h2 style="margin-left:50px; margin-right:50px;"><b>Portfolio: </b>{{ profile_free.portfolio }}</h2>
+        <h2 style="margin-left:50px; margin-right:50px;"><b>Street Address: </b>{{ profile_free.address1 }}, {{ profile_free.address2 }}</h2>
+        <h2 style="margin-left:50px; margin-right:50px;"><b>City: </b>{{ profile_free.city }}</h2>
+        <h2 style="margin-left:50px; margin-right:50px;"><b>Country: </b>{{ profile_free.country }}</h2>
+        <h2 style="margin-left:50px; margin-right:50px;"><b>About Me: </b>{{ profile_free.about }}</h2>
+
+        {% if name.is_authenticated and name == profile %}
+          <a style="margin-left:50px; margin-right:50px;" href="{% url 'freelancer:edit_profile' profile.id %}" class="btn btn-primary" style="margin-bottom:5px;">Edit Profile</a>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+
+  <!--tab 1 : bids -->
+  <div id="bids" class="tab-pane fade">
+    <div class="box-border">
+      <section id="main">
+        <article id="main-col">
+          <ul>
+            {% for bid in all_bids %}
+              {% if profile == bid.bid_poster %}
+                <div class="card">
+                  <div class="card-body">
+                    <h2><a href="{% url 'details:job_details' bid.job.id %}">{{ bid.job.title }}</a></h2>
+
+                    {% if name == bid.bid_poster %}
+                      <h3><b>Your Bid:</b></h3>
+                    {% else %}
+                      <h3><b>Bid:</b></h3>
+                    {% endif %}
+
+                    <p><b>Bid Description:</b> {{ bid.bid_text }}</p>
+                    <p><b>Budget Needed: </b>{{ bid.bid_budget }}</p>
+                    <p><b>Time Needed:</b>  {{ bid.bid_time }}<p>
+
+                    {% if name.is_authenticated and name == bid.bid_poster %}
+                      <a href="{% url 'details:edit_bid' bid.id %}" class="btn btn-primary" style="float:right;">Edit Bid</a>
+                    {% endif %}
+
+                    <p><b>Posted On:</b>  {{ bid.bid_posted_time }}<p>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </article>
+      </section>
+    </div>
+  </div>
+
+</div>
+
+
+{% endblock %}

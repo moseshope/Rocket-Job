@@ -1,0 +1,9 @@
+*.py[cod]
+.DS_Store
+__pycache__/
+*.py[cod]
+*.class
+
+
+
+About_This_Project.txt

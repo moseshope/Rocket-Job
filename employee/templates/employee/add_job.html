@@ -1,0 +1,96 @@
+{% extends 'employee/base_employee.html' %}
+
+{% block title %}Add a New Job{% endblock %}
+
+{% block body %}
+
+
+
+
+<div class="container">
+  <form id="contact" method="POST" action="{% url 'employee:add_job' %}">
+    {% csrf_token %}
+    <h3>Add a New Job</h3>
+    <fieldset>
+      <input placeholder="Job Title" name="title" type="text" tabindex="1" required autofocus>
+    </fieldset>
+    <fieldset>
+      <textarea placeholder="Job Description" name="short_text" tabindex="2" required></textarea>
+    </fieldset>
+    <fieldset>
+      <input placeholder="Job Duration (ex- 5 days)" name="time" type="text" tabindex="3" required>
+    </fieldset>
+    <fieldset>
+      <input placeholder="Specific Skills (ex- django, flask)" name="skill" type="text" tabindex="4" required>
+    </fieldset>
+    <fieldset>
+      <input placeholder="Your Budget (ex- 100 dollars)" name="budget" type="text" tabindex="5" required>
+    </fieldset>
+    <fieldset>
+      <button name="submit" type="submit" id="contact-submit" data-submit="...Posting">Submit</button>
+    </fieldset>
+  </form>
+</div>
+
+  <!--
+  <div class="form-group">
+    <label for="exampleFormControlTextarea1">Example textarea</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+  </div>
+  <div class="form-group">
+    <label class="col-form-label" for="formGroupExampleInput2">Another label</label>
+    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input">
+  </div>
+  <div class="form-group">
+    <label class="col-form-label" for="formGroupExampleInput">Example label</label>
+    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+  </div>
+  <div class="form-group">
+    <label class="col-form-label" for="formGroupExampleInput2">Another label</label>
+    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input">
+  </div>
+</form>
+
+<form>
+  <div class="form-group">
+    <label for="exampleInputText1">Job Title</label>
+    <input type="text" class="form-control" id="exampleInputText1" aria-describedby="emailHelp" placeholder="Enter Job Title">
+
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+  </div>
+  <div class="form-check">
+    <label class="form-check-label">
+      <input type="checkbox" class="form-check-input">
+      Check me out
+    </label>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+-->
+
+
+<!--
+<form>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+  </div>
+  <div class="form-check">
+    <label class="form-check-label">
+      <input type="checkbox" class="form-check-input">
+      Check me out
+    </label>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+-->
+
+{% endblock %}

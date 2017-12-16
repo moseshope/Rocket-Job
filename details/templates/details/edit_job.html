@@ -1,0 +1,41 @@
+{% extends 'details/base_details.html' %}
+
+{% block title %}Edit Job : {{ job.title }}{% endblock %}
+
+{% block body %}
+
+{% if name == job.user %}
+  <div class="container">
+    <form id="contact" method="POST" action="{% url 'details:edit_job' job.id %}">
+      {% csrf_token %}
+      <h3>Edit The Job</h3>
+      <fieldset>
+        <input placeholder="Job Title" name="title" type="text" tabindex="1" required autofocus>
+      </fieldset>
+      <fieldset>
+        <textarea placeholder="Job Description" name="short_text" tabindex="2" required></textarea>
+      </fieldset>
+      <fieldset>
+        <input placeholder="Job Duration (ex- 5 days)" name="time" type="text" tabindex="3" required>
+      </fieldset>
+      <fieldset>
+        <input placeholder="Specific Skills (ex- django, flask)" name="skill" type="text" tabindex="4" required>
+      </fieldset>
+      <fieldset>
+        <input placeholder="Your Budget (ex- 100 dollars)" name="budget" type="text" tabindex="5" required>
+      </fieldset>
+      <fieldset>
+        <button name="submit" type="submit" id="contact-submit" data-submit="...Posting">Re-Submit</button>
+      </fieldset>
+    </form>
+  </div>
+{% else %}
+  <div style="text-align: center; margin-top: 50px;">
+    <h1>Oops! You're Not Allowed To See This Page!<br>
+      <a style="margin-top: 50px;" href="{% url 'appMarketplace:index' %}">GO HOME</a>
+    </h1>
+  </div>
+{% endif %}
+
+
+{% endblock %}

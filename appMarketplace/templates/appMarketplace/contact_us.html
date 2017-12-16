@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Contact Us</title>
+		{% load static %}
+		<link rel="stylesheet" href="{% static 'appMarketplace/css/contact_us_style.css' %}" type="text/css">
+	</head>
+
+	<body>
+		<header>
+	    <div class="container">
+	      <div id="branding">
+	        <span class="highlight"><a href="/"><h1>GETWORK</h1></a></span>
+	      </div>
+	      <nav>
+					{% if name.is_authenticated and emp_user == True and free_user == False %}
+	          <ul>
+	            <li><a href="{% url 'scraper:aroundtheweb' %}">Around The Web</a></li>
+	            <li><a href="{% url 'employee:e_home' %}">Browse Jobs</a></li>
+	            <li><a href="{% url 'employee:add_job' %}">Post a Job</a></li>
+							<li><a href="{% url 'message:message' name.id %}">MESSAGES({{count_message_e}})</a></li>
+							<li><a href="{% url 'employee:profile' name.id %}">{{ name.username }}</a></li>
+	            <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+	          </ul>
+	        {% elif name.is_authenticated and free_user == True and emp_user == False %}
+	          <ul>
+	            <li><a href="{% url 'scraper:aroundtheweb' %}">Around The Web</a></li>
+							<li><a href="{% url 'freelancer:f_home' %}">Browse Jobs</a></li>
+					<!--		<li><a href="{% url 'message:message' name.id %}">MESSAGES({{count_message_f}})</a></li>-->
+							<li><a href="{% url 'freelancer:profile' name.id %}">{{ name.username }}</a></li>
+	            <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+	          </ul>
+	        {% else %}
+	          <ul>
+	            <li><a href="{% url 'scraper:aroundtheweb' %}">Around The Web</a></li>
+	            <li><a href="{% url 'accounts:e_reg' %}">Hire Freelancer</a></li>
+	            <li><a href="{% url 'accounts:f_reg' %}">Become A Freelancer</a></li>
+	            <li><a href="{% url 'accounts:login' %}">Login</a></li>
+	          </ul>
+	        {% endif %}
+	      </nav>
+	    </div>
+	  </header>
+
+		<div class="container">
+		  <form id="contact" action="" method="post">
+		    <h3>Quick Contact</h3>
+		    <h4>Contact us today, and get reply with in 24 hours!</h4>
+		    <fieldset>
+		      <input placeholder="Your name" type="text" tabindex="1" required autofocus>
+		    </fieldset>
+		    <fieldset>
+		      <input placeholder="Your Email Address" type="email" tabindex="2" required>
+		    </fieldset>
+		    <fieldset>
+		      <input placeholder="Your Phone Number" type="tel" tabindex="3" required>
+		    </fieldset>
+		    <fieldset>
+		      <input placeholder="Your Web Site starts with http://" type="url" tabindex="4" required>
+		    </fieldset>
+		    <fieldset>
+		      <textarea placeholder="Type your Message Here...." tabindex="5" required></textarea>
+		    </fieldset>
+		    <fieldset>
+		      <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
+		    </fieldset>
+		  </form>
+
+
+		</div>
+
+	</body>
+</html>

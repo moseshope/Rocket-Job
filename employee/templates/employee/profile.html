@@ -1,0 +1,72 @@
+{% extends 'employee/base_profile.html' %}
+
+{% block title %}{{ profile.username }} Profile{% endblock %}
+
+{% block body %}
+
+<ul class="nav nav-pills nav-justified">
+  <li class="active"><a data-toggle="tab" href="#profile">MY ACCOUNT</a></li>
+  <li><a data-toggle="tab" href="#projects">MY PROJECTS</a></li>
+</ul>
+
+<div class="tab-content">
+
+  <!--tab 1 : profile -->
+  <div id="profile" class="tab-pane fade in active">
+    <div class="container">
+      <div id="contact">
+
+        <h2 style="margin-left:50px; margin-right:50px;"><b>First Name: </b>{{ profile.first_name }}</h2>
+        <h2 style="margin-left:50px; margin-right:50px;"><b>Last Name: </b>{{ profile.last_name }}</h2>
+        <h2 style="margin-left:50px; margin-right:50px;"><b>Username: </b>{{ profile.username }}</h2>
+        <h2 style="margin-left:50px; margin-right:50px;"><b>Email Address: </b>{{ profile.email }}</h2>
+        <h2 style="margin-left:50px; margin-right:50px;"><b>Company: </b>{{ profile_emp.company }}</h2>
+        <h2 style="margin-left:50px; margin-right:50px;"><b>Website: </b>{{ profile_emp.website }}</h2>
+        <h2 style="margin-left:50px; margin-right:50px;"><b>Street Address: </b>{{ profile_emp.address1 }}, {{ profile_emp.address2 }}</h2>
+        <h2 style="margin-left:50px; margin-right:50px;"><b>City: </b>{{ profile_emp.city }}</h2>
+        <h2 style="margin-left:50px; margin-right:50px;"><b>Country: </b>{{ profile_emp.country }}</h2>
+        <h2 style="margin-left:50px; margin-right:50px;"><b>About Me: </b>{{ profile_emp.about }}</h2>
+
+        {% if name.is_authenticated and name == profile %}
+          <a style="margin-left:50px; margin-right:50px;" href="{% url 'employee:edit_profile' profile.id %}" class="btn btn-primary" style="margin-bottom:5px;">Edit Profile</a>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+
+  <!--tab 1 : projects -->
+  <div id="projects" class="tab-pane fade">
+    <div class="box-border">
+      <section id="main">
+        <article id="main-col">
+          <ul>
+            {% for job in all_jobs %}
+              {% if profile == job.user %}
+                <div class="card">
+                  <div class="card-body">
+                    <p style="float:right; margin:10px;"><b>Budget: </b>{{ job.budget }}</p>
+                    <p><h2 class="card-title"><a href="{% url 'details:job_details' job.id %}">{{ job.title }}</a></h2> posted by: {{ job.user }}</p>
+
+                    {% if name.is_authenticated and name == job.user %}
+                      <a href="{% url 'details:edit_job' job.id %}" class="btn btn-primary" style="margin-bottom:5px;">Edit Job</a>
+                    {% endif %}
+
+                    <p><b>Job Duration:</b>  {{ job.time }}<p>
+                    <p><b>Description:</b> {{ job.short_text }}</p>
+                    <p style="margin-top:5px;"><b>Skills:</b> {{ job.skill }}</p>
+                    <p><b>Posted On:</b>  {{ job.created_date }}<p>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </article>
+      </section>
+    </div>
+  </div>
+
+</div>
+
+
+{% endblock %}

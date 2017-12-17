@@ -18,3 +18,4 @@ requests==2.18.4
 setupfiles==0.0.50
 update-checker==0.16
 urllib3==1.22
+whitenoise==3.3.1
